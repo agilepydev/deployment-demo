@@ -27,8 +27,7 @@ with engine.connect() as connection:
         
  
 
-app = dash.Dash(__name__)
-server= app.server
+app = dash.Dash()
 
 
 

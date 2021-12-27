@@ -4,8 +4,28 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import pandas as pd
 import plotly.express as px
+import sqlalchemy
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import inspect
+import os 
 
-df = pd.read_csv('../data/final_data.csv')
+
+project_dir = os.path.dirname(os.path.abspath(__file__))
+database_file = "sqlite:///{}".format(os.path.join(project_dir, "games.db"))
+df = []
+engine = sqlalchemy.create_engine(database_file)
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
+inspector = inspect(engine)
+
+# Get table information
+print(inspector.get_table_names())
+
+with engine.connect() as connection:
+    df = pd.read_sql("games", connection)
+        
+ 
 
 app = dash.Dash()
 
@@ -25,14 +45,14 @@ app.layout = html.Div(children=[
                           {'label': 'price', 'value': 'price'}],
                           
                  value= "currency"),
-    dcc.Graph(id='graph')
+    dcc.Graph(id='revenue-graph')
 ])
 
 
 
 
 @app.callback(
-    Output(component_id='graph', component_property='figure'),
+    Output(component_id='revenue-graph', component_property='figure'),
     Input(component_id='features1-dropdown', component_property='value'),
     Input(component_id='features2-dropdown', component_property='value')
 )

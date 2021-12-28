@@ -7,7 +7,10 @@ import plotly.express as px
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import inspect
-import os 
+import os
+
+app = dash.Dash(__name__)
+server = app.server
 
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
@@ -32,17 +35,31 @@ app = dash.Dash()
 
 
 app.layout = html.Div(children=[
-    dcc.Link('Navigate to "/"', href='index.html'),
     html.H1(children='Games Dashboard'),
     dcc.Dropdown(id='features1-dropdown',
                  options=[{'label': 'revenue', 'value': 'revenue'},
-                          {'label': 'price', 'value': 'price'}],
+                          {'label': 'price', 'value': 'price'},
+                          {'label': 'currency', 'value': 'currency'},
+                          {'label': 'name', 'value': 'name'},
+                          {'label': 'positive reviews', 'value': 'total_positive_reviews'},
+                          {'label': 'negative reviews', 'value': 'total_negative_reviews'},
+                          {'label': 'amount reviews', 'value': 'number_reviews'},
+                          {'label': 'release date', 'value': 'release date'},
+                          {'label': 'id', 'value': 'id'}],
+                 
                           
                  value= "currency"),
     
     dcc.Dropdown(id='features2-dropdown',
                  options=[{'label': 'revenue', 'value': 'revenue'},
-                          {'label': 'price', 'value': 'price'}],
+                          {'label': 'price', 'value': 'price'},
+                          {'label': 'currency', 'value': 'currency'},
+                          {'label': 'name', 'value': 'name'},
+                          {'label': 'positive reviews', 'value': 'total_positive_reviews'},
+                          {'label': 'negative reviews', 'value': 'total_negative_reviews'},
+                          {'label': 'amount reviews', 'value': 'number_reviews'},
+                          {'label': 'release date', 'value': 'release_date'},
+                          {'label': 'id', 'value': 'id'}],
                           
                  value= "currency"),
     dcc.Graph(id='revenue-graph')

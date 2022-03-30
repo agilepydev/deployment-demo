@@ -85,6 +85,7 @@ def update_graph(val1, val2):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
-    
-    
+    port = os.environ.get('PORT') if os.environ.get('PORT') is not None else 5000
+    print("PORT:",port)
+
+    app.run_server(host = "0.0.0.0", port = port, debug=True)

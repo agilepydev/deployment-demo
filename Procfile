@@ -1,1 +1,1 @@
-gunicorn -b 0.0.0.0:80 app.main.py:app
+web: gunicorn app.main:app

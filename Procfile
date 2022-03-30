@@ -1,1 +1,1 @@
-gunicorn -w 3 run:server
+gunicorn -b 0.0.0.0:80 app.main:app
